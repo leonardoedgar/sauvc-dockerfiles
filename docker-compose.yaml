@@ -1,0 +1,18 @@
+version: '3.3'
+
+services:
+  osrmaster:
+    build: .
+    image: leonardo/sauvcmaster
+    container_name: sauvcmaster
+    network_mode: "host"
+    environment:
+      - DISPLAY=unix$DISPLAY
+    shm_size: 256M
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./catkin_ws/src/sauvc2020:/home/leonardo/catkin_ws/src/sauvc2020
+      - ./catkin_ws/src/rosserial:/home/leonardo/catkin_ws/src/rosserial
+    stop_signal: SIGINT
+    working_dir: /home/leonardo/catkin_ws/src
+    command: sleep infinity
