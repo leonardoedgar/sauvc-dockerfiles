@@ -1,10 +1,17 @@
 version: '3.3'
 
 services:
-  osrmaster:
+  sauvcmaster:
     build: .
     image: leonardo/sauvcmaster
     container_name: sauvcmaster
+    network_mode: "host"
+    stop_signal: SIGINT
+  hardware_interface:
+    build:
+      dockerfile: Dockerfile.hardware
+      context: .
+    container_name: hardware_interface
     network_mode: "host"
     environment:
       - DISPLAY=unix$DISPLAY
@@ -13,6 +20,7 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./catkin_ws/src/sauvc2020:/home/leonardo/catkin_ws/src/sauvc2020
       - ./catkin_ws/src/rosserial:/home/leonardo/catkin_ws/src/rosserial
+      - ~/Arduino/libraries:/home/leonardo/Arduino/libraries
     stop_signal: SIGINT
-    working_dir: /home/leonardo/catkin_ws/src
+    working_dir: /home/leonardo
     command: sleep infinity
