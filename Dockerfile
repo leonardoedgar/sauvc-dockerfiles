@@ -8,7 +8,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/* 
 
 # Install Python
-RUN apt-get update && apt-get install -y ipython python-dev python-numpy python-pip python-scipy python-pytest python-opencv python-serial
+RUN apt-get update && \
+	apt-get install -y ipython \
+	python-dev python-numpy python-pip \
+	python-scipy python-pytest python-opencv \
+	python-serial python-pytest-mock python-ipdb
 
 # Install python-catkin-tools
 RUN apt-get update && apt-get install -y python-catkin-tools\
