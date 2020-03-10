@@ -15,6 +15,7 @@ services:
     network_mode: "host"
     environment:
       - DISPLAY=unix$DISPLAY
+      - MACHINE=${MACHINE}
     shm_size: 256M
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
