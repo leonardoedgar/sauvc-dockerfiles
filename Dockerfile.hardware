@@ -13,6 +13,7 @@ RUN mkdir -p /etc/sudoers.d \
     && echo "${user} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/sudoers_${user}
 USER ${user}
 RUN sudo usermod -a -G video ${user}
+RUN sudo usermod -a -G dialout ${user}
 
 WORKDIR ${home}
 
