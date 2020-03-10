@@ -35,7 +35,10 @@ do
     if [ -d "${REPO_FOLDER}" ]; then
         cd ${REPO_FOLDER};
         if [ -z "$(sudo git status --porcelain)" ]; then
-            echo -ne "${REPO} \n"
+            git pull
+            echo -ne "${REPO} updated\n"
+        else 
+            echo -ne "Failed to update repository: ${REPO} due to unsaved local changes. Discard or push the changes to the remote repository to update it.\n"
         fi
     else
         git clone https://github.com/leonardoedgar/${REPO}.git ${REPO_FOLDER};
