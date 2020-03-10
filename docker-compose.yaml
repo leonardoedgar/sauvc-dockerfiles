@@ -21,7 +21,7 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /dev:/dev
-      - ./catkin_ws/src/sauvc2020:/home/leonardo/catkin_ws/src/sauvc2020
+      - ./catkin_ws/src/sauvc:/home/leonardo/catkin_ws/src/sauvc
       - ./catkin_ws/src/rosserial:/home/leonardo/catkin_ws/src/rosserial
       - ~/Arduino/libraries:/home/leonardo/Arduino/libraries
     stop_signal: SIGINT

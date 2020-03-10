@@ -19,7 +19,7 @@ WORKDIR ${home}
 
 # Setup catkin workspace
 RUN mkdir catkin_ws/src -p
-COPY --chown=leonardo catkin_ws/src/sauvc2020				catkin_ws/src/sauvc2020
+COPY --chown=leonardo catkin_ws/src/sauvc				catkin_ws/src/sauvc
 COPY --chown=leonardo catkin_ws/src/rosserial				catkin_ws/src/rosserial
 RUN /bin/bash -c "source /opt/ros/melodic/setup.bash; cd catkin_ws/src; catkin_init_workspace; cd ..; catkin_make"
 

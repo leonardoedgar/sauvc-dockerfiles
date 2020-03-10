@@ -27,7 +27,7 @@ fi
 info_msg "\n[Updating private ROS packages]"
 CATKIN_WS="${COMPOSE_DIR}/catkin_ws/src"
 mkdir -p ${CATKIN_WS}
-REPOSITORIES=("sauvc2020" "rosserial")
+REPOSITORIES=("sauvc" "rosserial")
 CURRENT_DIR=$(pwd)
 for REPO in "${REPOSITORIES[@]}"
 do
