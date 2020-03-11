@@ -24,6 +24,7 @@ services:
       - ./catkin_ws/src/sauvc:/home/leonardo/catkin_ws/src/sauvc
       - ./catkin_ws/src/rosserial:/home/leonardo/catkin_ws/src/rosserial
       - ~/Arduino/libraries:/home/leonardo/Arduino/libraries
+      - ./build_arduino_lib.sh:/home/leonardo/Arduino/libraries/build_arduino_lib.sh
     stop_signal: SIGINT
     working_dir: /home/leonardo
     command: sleep infinity
