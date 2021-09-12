@@ -1,17 +1,26 @@
 version: '3.3'
 
 services:
-  sauvcmaster:
-    build: .
-    image: leonardo/sauvcmaster
-    container_name: sauvcmaster
-    network_mode: "host"
-    stop_signal: SIGINT
-  hardware_interface:
+  rosmaster:
     build:
-      dockerfile: Dockerfile.hardware
+      dockerfile: Dockerfile
       context: .
-    container_name: hardware_interface
+    image: leonardoedgar/sauvc-rosmaster:latest
+    container_name: rosmaster
+    network_mode: "host"
+    environment:
+      - DISPLAY=unix$DISPLAY
+    shm_size: 256M
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    stop_signal: SIGINT
+    command: ["/ros_entrypoint.sh", "roscore"]
+  arduino:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: leonardoedgar/sauvc-arduino:latest
+    container_name: arduino
     network_mode: "host"
     privileged: true
     environment:
@@ -21,10 +30,27 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /dev:/dev
-      - ./catkin_ws/src/sauvc:/home/leonardo/catkin_ws/src/sauvc
       - ./catkin_ws/src/rosserial:/home/leonardo/catkin_ws/src/rosserial
       - ~/Arduino/libraries:/home/leonardo/Arduino/libraries
       - ./build_arduino_lib.sh:/home/leonardo/Arduino/libraries/build_arduino_lib.sh
     stop_signal: SIGINT
     working_dir: /home/leonardo
-    command: sleep infinity
+    command: ["./run_serial_node.sh"]
+  controller:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: leonardoedgar/sauvc-controller:latest
+    container_name: controller
+    network_mode: "host"
+    privileged: true
+    environment:
+      - DISPLAY=unix$DISPLAY
+      - MACHINE=${MACHINE}
+    shm_size: 256M
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./catkin_ws/src/sauvc:/home/leonardo/catkin_ws/src/sauvc
+    stop_signal: SIGINT
+    working_dir: /home/leonardo
+    command: ["/ros_entrypoint.sh", "roslaunch" ,"sauvc_app" ,"control.launch"]
