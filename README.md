@@ -58,9 +58,11 @@ docker-compose -f docker-compose-dev.yaml run rosmaster
 ```
 
 * To run the deployment container
-```bash
-docker-compose up
-```
+  1. Upload Arduino script using the Arduino IDE (To ensure ROS Serial can detect ROS nodes in Arduino)
+  2. Start all docker services
+  ```bash
+  docker-compose up
+  ```
 
 * To run the IMU (Xsens MTi)
 ```bash

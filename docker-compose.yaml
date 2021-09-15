@@ -1,20 +1,6 @@
 version: '3.3'
 
 services:
-  rosmaster:
-    build:
-      dockerfile: Dockerfile
-      context: .
-    image: leonardoedgar/sauvc-rosmaster:latest
-    container_name: rosmaster
-    network_mode: "host"
-    environment:
-      - DISPLAY=unix$DISPLAY
-    shm_size: 256M
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-    stop_signal: SIGINT
-    command: ["/ros_entrypoint.sh", "roscore"]
   arduino:
     build:
       dockerfile: Dockerfile
@@ -54,3 +40,4 @@ services:
     stop_signal: SIGINT
     working_dir: /home/leonardo
     command: ["/ros_entrypoint.sh", "roslaunch" ,"sauvc_app" ,"control.launch"]
+
